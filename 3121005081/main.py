@@ -4,13 +4,14 @@ import re
 import numpy as np
 import jieba
 from sklearn.feature_extraction.text import CountVectorizer
+import sys
 
 # 加载数据
 # 限制了数据只能在data文件夹中，因此，只需要将对比的文件放入data文件夹中，然后直接通过文件名就可以调用
 def load_data(localtion,enconding='utf8'):
     try:
         # 打开文件
-        F=open('./data/'+localtion,'r',encoding=enconding)
+        F=open(localtion,'r',encoding=enconding)
         # 返回文件内容
         data=F.read()
         F.close()
@@ -63,8 +64,8 @@ def TF(data1,data2):
 
 # 将结果写入文件
 def save_result(localtion,result,encoding='utf-8'):
-    F=open('./result/'+localtion,'w',encoding=encoding)
-    F.write(f"{result}")
+    F=open(localtion,'w',encoding=encoding)
+    F.write("%.2f"%result)
     F.close()
 
 def run(data1_location,data2_location,result_location3):
@@ -78,4 +79,9 @@ def run(data1_location,data2_location,result_location3):
 
     save_result(result_location3,result)
 
+if __name__=='__main__':
+    data1=sys.argv[0]
+    data2=sys.argv[1]
+    result=sys.argv[2]
+    run(data1,data2,result)
 
